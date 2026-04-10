@@ -10,3 +10,34 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+model User {
+  id           Int          @id @default(autoincrement())
+  email        String       @unique
+  fullName     String
+  passwordHash String
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+  actions      UserAction[]
+}
+
+model UserAction {
+  id        Int        @id @default(autoincrement())
+  userId    Int
+  action    ActionType
+  metadata  Json?
+  ip        String?
+  userAgent String?
+  createdAt DateTime   @default(now())
+
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+}
+
+enum ActionType {
+  SIGNUP
+  LOGIN
+  LOGOUT
+  RESTAURANTS_SEARCH
+}
