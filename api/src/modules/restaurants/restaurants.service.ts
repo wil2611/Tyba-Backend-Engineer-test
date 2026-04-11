@@ -4,6 +4,7 @@ import axios from 'axios';
 import { ActionType } from '@prisma/client';
 import { UserActionsService } from '../user-actions/user-actions.service';
 import { NearbyRestaurantsDto } from './dto/nearby-restaurants.dto';
+import { Request } from 'express';
 
 @Injectable()
 export class RestaurantsService {
@@ -12,7 +13,7 @@ export class RestaurantsService {
         private readonly userActionsService: UserActionsService,
     ) { }
     // buscamos restaurantes cercanos basado en ciudad o coordenadas
-    async findNearby(userId: number, query: NearbyRestaurantsDto) {
+    async findNearby(userId: number, query: NearbyRestaurantsDto, request?: Request) {
         let lat = query.lat;
         let lng = query.lng;
 
@@ -37,6 +38,8 @@ export class RestaurantsService {
                 lng,
                 results: restaurants.length,
             },
+            ip: request?.ip,
+            userAgent: request?.headers['user-agent'],
         });
 
         return {

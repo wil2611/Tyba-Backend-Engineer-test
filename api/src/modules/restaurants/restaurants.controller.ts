@@ -1,8 +1,9 @@
-import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { Controller, Get, Query, Req, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../../common/decorators/current-user.decorator';
 import { NearbyRestaurantsDto } from './dto/nearby-restaurants.dto';
 import { RestaurantsService } from './restaurants.service';
+import express from 'express';
 
 @Controller('restaurants')
 @UseGuards(JwtAuthGuard)
@@ -13,7 +14,8 @@ export class RestaurantsController {
     findNearby(
         @CurrentUser() user: { sub: number },
         @Query() query: NearbyRestaurantsDto,
+        @Req() request: express.Request,
     ) {
-        return this.restaurantsService.findNearby(user.sub, query);
+        return this.restaurantsService.findNearby(user.sub, query, request);
     }
 }
