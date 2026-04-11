@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ActionType, Prisma } from '@prisma/client';
-import { PrismaService } from '../../prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 
 type RegisterUserActionInput = {
   userId: number;
