@@ -26,7 +26,7 @@ Acciones auditadas:
 - JWT para autenticacion
 - Swagger para documentacion
 - Jest + Supertest para pruebas e2e
-- Docker + Docker Compose (bonus)
+- Docker + Docker Compose
 
 ## Estructura del proyecto
 
@@ -98,7 +98,7 @@ Swagger:
 
 - `http://localhost:3000/docs`
 
-## Como correr con Docker (bonus)
+## Como correr con Docker
 
 Desde `api/`:
 
