@@ -5,7 +5,10 @@ import { PrismaPg } from '@prisma/adapter-pg';
 import { Pool } from 'pg';
 
 @Injectable()
-export class PrismaService extends PrismaClient implements OnModuleInit, OnModuleDestroy {
+export class PrismaService
+  extends PrismaClient
+  implements OnModuleInit, OnModuleDestroy
+{
   private readonly pool: Pool;
 
   constructor(configService: ConfigService) {
@@ -19,7 +22,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
   async onModuleInit() {
     await this.$connect();
   }
-// cerrar conexion de prisma al finalizar el módulo
+  // cerrar conexion de prisma al finalizar el módulo
   async onModuleDestroy() {
     await this.$disconnect();
     await this.pool.end();

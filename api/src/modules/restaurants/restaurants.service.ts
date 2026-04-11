@@ -1,4 +1,5 @@
 import {
+  BadGatewayException,
   BadRequestException,
   Injectable,
   InternalServerErrorException,
@@ -59,7 +60,7 @@ export class RestaurantsService {
     }
 
     const restaurants = await this.searchRestaurants(lat, lng);
-    // Registramos la acción del usuario
+    // Registramos la accion del usuario
     await this.userActionsService.register({
       userId,
       action: ActionType.RESTAURANTS_SEARCH,
@@ -82,10 +83,10 @@ export class RestaurantsService {
     const raw = this.configService.get<string>('HTTP_TIMEOUT_MS');
     const parsed = Number(raw);
     if (Number.isFinite(parsed) && parsed > 0) return parsed;
-    return 8000;
+    return 20000;
   }
 
-  // función para obtener latitud y longitud apartir de la ciudad
+  // funcion para obtener latitud y longitud apartir de la ciudad
   private async geocodeCity(
     city: string,
   ): Promise<{ lat: number; lng: number }> {
@@ -111,8 +112,8 @@ export class RestaurantsService {
       };
     } catch (error) {
       if (error instanceof BadRequestException) throw error;
-      throw new InternalServerErrorException(
-        'No se pudo geocodificar la ciudad',
+      throw new BadGatewayException(
+        'La API de geocodificacion no respondio correctamente',
       );
     }
   }
@@ -156,8 +157,8 @@ export class RestaurantsService {
         }),
       );
     } catch {
-      throw new InternalServerErrorException(
-        'No se pudo consultar restaurantes',
+      throw new BadGatewayException(
+        'La API de restaurantes no respondio correctamente',
       );
     }
   }
