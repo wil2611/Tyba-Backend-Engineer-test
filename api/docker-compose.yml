@@ -1,0 +1,38 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: tyba-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: tyba_test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d tyba_test"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: .
+    container_name: tyba-api
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/tyba_test?schema=public
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: 1d
+      RESTAURANTS_API_KEY: ${RESTAURANTS_API_KEY}
+      RESTAURANTS_BASE_URL: https://api.geoapify.com/v2/places
+      GEOCODING_BASE_URL: https://api.geoapify.com/v1/geocode/search
+      HTTP_TIMEOUT_MS: 20000
+
+volumes:
+  postgres_data:
