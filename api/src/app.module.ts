@@ -5,6 +5,7 @@ import { PrismaModule } from './prisma/prisma.module';
 import { UsersModule } from './modules/users/users.module';
 import { UserActionsModule } from './modules/user-actions/user-actions.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { RestaurantsModule } from './modules/restaurants/restaurants.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -15,6 +16,7 @@ import { AuthModule } from './modules/auth/auth.module';
     UsersModule,
     UserActionsModule,
     AuthModule,
+    RestaurantsModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }
