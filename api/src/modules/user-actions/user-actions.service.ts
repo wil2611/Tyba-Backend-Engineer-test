@@ -13,7 +13,7 @@ type RegisterUserActionInput = {
 @Injectable()
 export class UserActionsService {
   constructor(private readonly prisma: PrismaService) {}
-
+  //guaradamos las acciones del usuaio
   register(input: RegisterUserActionInput) {
     return this.prisma.userAction.create({
       data: {
@@ -25,7 +25,7 @@ export class UserActionsService {
       },
     });
   }
-
+  //obtenemos las accionesdel usuario con paginacion
   async findByUser(userId: number, page = 1, limit = 20) {
     const safePage = Math.max(1, page);
     const safeLimit = Math.min(Math.max(1, limit), 100);

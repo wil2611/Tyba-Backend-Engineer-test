@@ -14,7 +14,7 @@ const publicUserSelect = {
 @Injectable()
 export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
-
+  //creamos  nuevo usuario
   async create(dto: CreateUserDto) {
     const { email, fullName, password } = dto;
 
@@ -31,6 +31,7 @@ export class UsersService {
       });
     } catch (error) {
       if (
+        // error dato repetido, el email ya esta registrado
         error instanceof Prisma.PrismaClientKnownRequestError &&
         error.code === 'P2002'
       ) {
