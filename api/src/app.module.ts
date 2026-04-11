@@ -19,4 +19,4 @@ import { RestaurantsModule } from './modules/restaurants/restaurants.module';
     RestaurantsModule,
   ],
 })
-export class AppModule { }
+export class AppModule {}

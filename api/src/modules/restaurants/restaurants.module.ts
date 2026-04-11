@@ -4,8 +4,8 @@ import { RestaurantsService } from './restaurants.service';
 import { UserActionsModule } from '../user-actions/user-actions.module';
 
 @Module({
-    imports: [UserActionsModule],
-    controllers: [RestaurantsController],
-    providers: [RestaurantsService],
+  imports: [UserActionsModule],
+  controllers: [RestaurantsController],
+  providers: [RestaurantsService],
 })
-export class RestaurantsModule { }
+export class RestaurantsModule {}

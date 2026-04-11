@@ -1,18 +1,24 @@
 import { Type } from 'class-transformer';
-import { IsLatitude, IsLongitude, IsOptional, IsString, ValidateIf } from 'class-validator';
+import {
+  IsLatitude,
+  IsLongitude,
+  IsOptional,
+  IsString,
+  ValidateIf,
+} from 'class-validator';
 
 export class NearbyRestaurantsDto {
-    @IsOptional()
-    @IsString()
-    city?: string;
+  @IsOptional()
+  @IsString()
+  city?: string;
 
-    @ValidateIf((o) => !o.city)
-    @Type(() => Number)
-    @IsLatitude()
-    lat?: number;
+  @ValidateIf((dto: NearbyRestaurantsDto) => !dto.city)
+  @Type(() => Number)
+  @IsLatitude()
+  lat?: number;
 
-    @ValidateIf((o) => !o.city)
-    @Type(() => Number)
-    @IsLongitude()
-    lng?: number;
+  @ValidateIf((dto: NearbyRestaurantsDto) => !dto.city)
+  @Type(() => Number)
+  @IsLongitude()
+  lng?: number;
 }
